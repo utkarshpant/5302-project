@@ -1,11 +1,9 @@
-setwd("C:/Users/soham/Documents/Github rep/5302-project")
-df <- read.csv(file = "./dataset/breast-cancer-wisconsin.data", sep=",", header = FALSE)
-df
-
-str(df)
+# Load dataset into environment and review DataFrame structure
+cancer_data <- read.csv(file = "dataset/breast-cancer-wisconsin.data", sep=",", header = FALSE)
+str(cancer_data)
 
 #Providing feature names
-colnames(df) <- c("sample_code_number",
+colnames(cancer_data) <- c("sample_code_number",
                   "clump_thickness",
                   "uniformity_of_cell_size",
                   "uniformity_of_cell_shape",
@@ -16,16 +14,16 @@ colnames(df) <- c("sample_code_number",
                   "normal_nucleoli",
                   "mitoses",
                   "class")
-str(df)
-head(df)
+
+# Reconfirm that feature names were updated and preview data
+str(cancer_data)
+head(cancer_data)
 
 #Checking for missing variables
-sapply(df, function(x) sum(is.na(x)))
+sapply(cancer_data, function(x) sum(is.na(x)))
 
-
-
-
-
+# Drop "sample_code_number" as it is not noteworthy
+cancer_data <- select(cancer_data, -c("sample_code_number"))
 
 
 

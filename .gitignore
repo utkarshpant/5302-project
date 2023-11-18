@@ -13,7 +13,7 @@
 # Packages
 *.Rcheck/
 .Renviron
-.Rproj/
+.Rproj/q
 .Rproj.site/
 
 # Data files
