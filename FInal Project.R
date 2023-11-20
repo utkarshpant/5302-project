@@ -62,5 +62,61 @@ box()
 axis(side = 2)
 #code end
 
+#EDA
+#Correlation matrix
+cort <- cor(df2[, c("clump_thickness", "uniformity_of_cell_size","uniformity_of_cell_shape", "marginal_adhesion",
+            "single_epithelial_cell_size", "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitoses",
+            "class")])
 
-     
+
+
+# Example: Identify outliers using boxplot
+boxplot(df2$clump_thickness, col = "skyblue", main = "Boxplot")
+boxplot(df2$uniformity_of_cell_size, col = "skyblue", main = "Boxplot")
+boxplot(df2$uniformity_of_cell_shape, col = "skyblue", main = "Boxplot")
+boxplot(df2$marginal_adhesion, col = "skyblue", main = "Boxplot")
+boxplot(df2$single_epithelial_cell_size, col = "skyblue", main = "Boxplot")
+boxplot(df2$bare_nuclei, col = "skyblue", main = "Boxplot")
+boxplot(df2$bland_chromatin, col = "skyblue", main = "Boxplot")
+boxplot(df2$normal_nucleoli, col = "skyblue", main = "Boxplot")
+boxplot(df2$mitoses, col = "skyblue", main = "Boxplot")
+
+library('corrplot')
+corrplot(cort, order = "hclust", tl.cex = 1.0)
+
+library("caret")
+highlyCor <- colnames(df2)[findCorrelation(cort, cutoff = 0.9, verbose = TRUE)]
+
+highlyCor
+
+pairs(clump_thickness + uniformity_of_cell_shape + uniformity_of_cell_shape + marginal_adhesion + 
+        single_epithelial_cell_size + bare_nuclei + bland_chromatin + normal_nuclei + mitoses + class, data=df2) 
+df2 <- df2[, -1]
+df2
+
+df2 <-df2[,-2]
+df2
+
+
+#Data preparation
+#PCA
+features <- df2[, 2:ncol(df2)]
+features
+
+
+#Scaled features
+scaled_features <- scale(features)
+
+
+pca <- prcomp(scaled_features, center = TRUE, scale=TRUE)
+summary(pca)
+
+prop_var <- pca$sdev^2 / sum(pca$sdev^2)
+prop_var
+
+
+plot(prop_var, type = "o", main = "Scree Plot", xlab = "Principal Component", ylab = "Proportion of Variance Explained")
+
+
+
+
