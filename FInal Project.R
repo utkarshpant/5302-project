@@ -333,7 +333,13 @@ prop_var
 cancer_data <- select(cancer_data, -c("mitoses"))
 
 # Plot a Scree Plot to visualise PCA results
-plot(prop_var, type = "o", main = "Scree Plot", xlab = "Principal Component", ylab = "Proportion of Variance Explained")
+qplot(seq_along(prop_var), prop_var) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Principal components",
+       y = "Variance explained",
+       title = "Scree plot",
+       caption = "Notice that PC1 explains most of the variance in the dataset")
 
 # Training the model
 # Splitting the dataset into a 70/30
