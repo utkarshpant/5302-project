@@ -69,6 +69,7 @@ ggplot(cancer_data) +
        caption = "Notice the clear differentiation in the range of clump thickness values") +
   scale_fill_manual(values = c('Benign' = '#006989', 'Malignant' = '#CFDBD5'))
 
+
 ggplot(cancer_data) +
   geom_boxplot(aes(x = factor(class, labels = c("Benign", "Malignant")),
                    y = uniformity_of_cell_size,
@@ -77,7 +78,7 @@ ggplot(cancer_data) +
   labs(x = "Tumour type",
        y = "Uniformity of cell size",
        fill = "Legend",
-       title = "Boxplot of Uniformity of cell size by classification",
+       title = "Boxplot of uniformity of cell size by classification",
        caption = "") +
   scale_fill_manual(values = c('Benign' = '#006989', 'Malignant' = '#CFDBD5'))
 
@@ -89,7 +90,7 @@ ggplot(cancer_data) +
   labs(x = "Tumour type",
        y = "Uniformity of cell size",
        fill = "Legend",
-       title = "Boxplot of Uniformity of cell shape by classification",
+       title = "Boxplot of uniformity of cell shape by classification",
        caption = "") +
   scale_fill_manual(values = c('Benign' = '#006989', 'Malignant' = '#CFDBD5'))
 
@@ -194,12 +195,14 @@ boxplot(cancer_data$mitoses, col = "skyblue", main = "Boxplot")
 correlation_matrix <- cor(cancer_data)
 
 # TODO: Convert to ggcorrplot
-ggcorrplot(correlation_matrix)
+ggcorrplot(correlation_matrix) +
+  labs(title = "Correlation between all features")
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = mitoses,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-  binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Mitoses by classification",
        y = "Frequency",
        fill = "Classification",
@@ -209,7 +212,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = clump_thickness,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Clump thickness by classification",
        y = "Frequency",
        fill = "Classification",
@@ -219,7 +223,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = uniformity_of_cell_size,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Uniformity of cell size by classification",
        y = "Frequency",
        fill = "Classification",
@@ -229,7 +234,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = uniformity_of_cell_shape,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Uniformity of cell shape by classification",
        y = "Frequency",
        fill = "Classification",
@@ -239,7 +245,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = marginal_adhesion,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Marginal adhesion by classification",
        y = "Frequency",
        fill = "Classification",
@@ -249,7 +256,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = single_epithelial_cell_size,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Single cell epithelial size by classification",
        y = "Frequency",
        fill = "Classification",
@@ -259,7 +267,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = bare_nuclei,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Bare nuclei by classification",
        y = "Frequency",
        fill = "Classification",
@@ -269,7 +278,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = bland_chromatin,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "1") +
   labs(x = "Bland chromatin by classification",
        y = "Frequency",
        fill = "Classification",
@@ -279,7 +289,8 @@ ggplot(cancer_data) +
 ggplot(cancer_data) +
   geom_histogram(aes(x = normal_nucleoli,
                      fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+                 binwidth = 1,
+                 colour = "#1e1e1e") +
   labs(x = "Normal nucleoli by classification",
        y = "Frequency",
        fill = "Classification",
@@ -288,8 +299,8 @@ ggplot(cancer_data) +
 
 ggplot(cancer_data) +
   geom_bar(aes(x = factor(class, labels = c("Benign", "Malignant")),
-                     fill = factor(class, labels = c("Benign", "Malignant"))),
-                 binwidth = 1) +
+               fill = factor(class, labels = c("Benign", "Malignant"))),
+           binwidth = 1) +
   labs(x = "Occurrences of each class",
        y = "Frequency",
        fill = "Classification",
@@ -309,7 +320,7 @@ ggplot(cancer_data) +
 # hist(cancer_data$mitoses)
 
 #EDA
-highly_correlated_features <- colnames(cancer_data)[findCorrelation(cort, cutoff = 0.9, verbose = TRUE)]
+highly_correlated_features <- colnames(cancer_data)[findCorrelation(correlation_matrix, cutoff = 0.9, verbose = TRUE)]
 highly_correlated_features
 
 cancer_data <- select(cancer_data, -c(highly_correlated_features[1]))
@@ -389,3 +400,19 @@ accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)
 
 summary(conf_matrix)
 accuracy
+
+# Create correlation plot with custom styling
+ggcorrplot(correlation_matrix,
+           hc.order = TRUE, # Hierarchical clustering
+           type = "upper",  # Display lower triangle of the correlation matrix
+           outline.color = "#1e1e1e",  # Color of the outline
+           lab_size = 8,  # Size of the correlation coefficient labels
+           method = "circle",  # Type of correlation display (you can also use "number", "ellipse", etc.)
+           colors = c("darkblue", "purple", "yellow"),  # Color range for correlation values
+           title = "Correlation between all features",
+           lab = FALSE,
+           tl.cex = 10.5,
+           tl.srt = 45,
+           as.is = FALSE,
+           # ggtheme = theme_minimal(),  # Choose a theme (e.g., theme_minimal(), theme_classic(), etc.)
+           legend.title = "Correlation")
