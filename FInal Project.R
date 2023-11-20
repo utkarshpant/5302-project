@@ -207,7 +207,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of mitoses by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = clump_thickness,
@@ -218,7 +218,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of clump thickness by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = uniformity_of_cell_size,
@@ -229,7 +229,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of uniformity of cell size by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = uniformity_of_cell_shape,
@@ -240,7 +240,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of uniformity of cell shape by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = marginal_adhesion,
@@ -251,7 +251,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of marginal adhesion by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = single_epithelial_cell_size,
@@ -262,7 +262,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of single cell epithelial size by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = bare_nuclei,
@@ -272,8 +272,8 @@ ggplot(cancer_data) +
   labs(x = "Bare nuclei by classification",
        y = "Frequency",
        fill = "Classification",
-       title = "Distribution of bare_nuclei by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+       title = "Distribution of bare nuclei by classification") +
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = bland_chromatin,
@@ -284,7 +284,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of bland chromatin by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_histogram(aes(x = normal_nucleoli,
@@ -295,7 +295,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of normal nucleoli by classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 ggplot(cancer_data) +
   geom_bar(aes(x = factor(class, labels = c("Benign", "Malignant")),
@@ -305,7 +305,7 @@ ggplot(cancer_data) +
        y = "Frequency",
        fill = "Classification",
        title = "Distribution of classification") +
-  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = 'darkblue'))
+  scale_fill_manual(values = c('Benign' = 'orange', 'Malignant' = '#006989'))
 
 
 # These plots were translated into ggplot; could make a function to plot them
@@ -344,9 +344,11 @@ prop_var
 cancer_data <- select(cancer_data, -c("mitoses"))
 
 # Plot a Scree Plot to visualise PCA results
-qplot(seq_along(prop_var), prop_var) +
-  geom_line() +
-  geom_point() +
+pca_df <- data.frame(x = seq_along(prop_var),
+                    y = prop_var)
+ggplot(data = pca_df) +
+  geom_line(aes(x = x, y = y)) +
+  geom_point(aes(x = x, y = y)) +
   labs(x = "Principal components",
        y = "Variance explained",
        title = "Scree plot",
