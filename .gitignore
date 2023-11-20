@@ -1,0 +1,47 @@
+# R specific
+.Rhistory
+.RData
+.Rproj.user/
+
+# Generated files
+*.html
+*.pdf
+
+# Logs
+*.log
+
+# Packages
+*.Rcheck/
+.Renviron
+.Rproj/q
+.Rproj.site/
+
+# Data files
+data/*.csv
+data/*.tsv
+data/*.xlsx
+
+# Exclude specific large datasets
+large_data.csv
+
+# Temporary files
+.Rproj.knit/
+.Rproj.markdown/
+
+# Shiny related
+*.Rapp.history
+.Rdata
+shiny_cache/
+
+# DataSpell specific
+.idea/
+__pycache__/
+data_spell.log
+spell.cfg
+
+# macOS system files
+.DS_Store
+
+# Windows-specific files
+Thumbs.db
+desktop.ini
