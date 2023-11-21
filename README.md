@@ -1,6 +1,6 @@
 # 5302 Final Project
 
-## This is the code for the ASDS 5302 final project, presented by Utkarsh Pant and Soham Neeraj Agarkar on Nov. 21, 2023.
+## This is the code for the ASDS 5302 final project presented by Utkarsh Pant and Soham Neeraj Agarkar on Nov. 21, 2023.
 
 Written in R, we conduct exploratory data analysis on the [Wisconsin Breast Cancer (Original)](https://archive.ics.uci.edu/dataset/15/breast+cancer+wisconsin+original) dataset.
 
