@@ -12,6 +12,7 @@ library(ggcorrplot)
 library(corrplot)
 library(tree)
 library(corrplot)
+library(rpart)
 
 # Load dataset into environment and review DataFrame structure
 cancer_data <- read.csv(file = "dataset/breast-cancer-wisconsin.data", sep = ",", header = FALSE)
@@ -368,7 +369,7 @@ test_data <- cancer_data[-train_index$Resample1,]
 # Defining base models
 base_models <- list(
   model_lr = glm(training_data$class ~ ., data = training_data, family = "binomial"),
-  model_dt = tree(training_data$class ~ ., data = training_data),
+  model_dt = rpart(training_data$class ~ ., data = training_data),
   model_svm = svm(training_data$class ~ ., data = training_data),
   # KNN "models" directly give us the labels that they assign for each instance
   model_knn = knn(select(training_data, -c("class")), select(test_data, -c("class")), cl = training_data$class, k = 3)
@@ -418,3 +419,10 @@ ggcorrplot(correlation_matrix,
            as.is = FALSE,
            # ggtheme = theme_minimal(),  # Choose a theme (e.g., theme_minimal(), theme_classic(), etc.)
            legend.title = "Correlation")
+
+# Visualisation of decision tree
+library(partykit)
+party_tree <- as.party(base_models$model_dt)
+plot(party_tree,
+     main = "Visualisation of the Decision Tree base model",
+type = "extended")
